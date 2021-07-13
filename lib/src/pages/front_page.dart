@@ -1,68 +1,33 @@
 import 'package:flutter/material.dart';
 
-import 'package:rick_morty/src/pages/home_page.dart';
-import 'package:rick_morty/src/pages/location_page.dart';
-import 'package:rick_morty/src/pages/status_page.dart';
+import 'package:rick_morty/src/providers/character_provider.dart';
+import 'package:rick_morty/src/widgets/character_data.dart';
 
-class FrontPage extends StatefulWidget {
-  const FrontPage({Key? key}) : super(key: key);
-
-  @override
-  _FrontPageState createState() => _FrontPageState();
-}
-
-class _FrontPageState extends State<FrontPage> {
-  int _selectedIndex = 0;
-  final List<Widget> _pageBottomBar = [
-    HomePage(),
-    LocationPage(),
-    StatusPage(),
-  ];
+class FrontPage extends StatelessWidget {
+  final characterProvider = new CharacterProvider();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Rick & Morty"),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            tooltip: 'Search User',
-            icon: Icon(
-              Icons.search,
-            ),
-          ),
-        ],
-      ),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pageBottomBar,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        showUnselectedLabels: true,
-        showSelectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        onTap: _onItemTapped,
-        items: [
-          _bottomItem(Icons.home_filled, 'Home'),
-          _bottomItem(Icons.gps_fixed, 'Location'),
-          _bottomItem(Icons.inventory, 'Status'),
-        ],
+      body: Container(
+        padding: EdgeInsets.all(15.0),
+        child: _getCharacter(),
       ),
     );
   }
 
-  _bottomItem(IconData icon, String title) {
-    return BottomNavigationBarItem(
-      icon: Icon(icon),
-      label: title,
+  _getCharacter() {
+    return FutureBuilder(
+      future: characterProvider.getCharacters(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return CharacterData(datos: snapshot.data);
+        } else {
+          return Container(
+            child: Text('Loading data...'),
+          );
+        }
+      },
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 }
