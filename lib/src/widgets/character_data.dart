@@ -13,7 +13,7 @@ class CharacterData extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 15.0,
           crossAxisCount: 2,
-          childAspectRatio: 1.0,
+          childAspectRatio: 0.7,
         ),
         physics: ScrollPhysics(),
         itemCount: datos.length,
@@ -30,12 +30,13 @@ class CharacterData extends StatelessWidget {
             '${dato.image}',
             fit: BoxFit.cover,
           ),
-          SizedBox(height: 5.0),
+          SizedBox(height: 15.0),
           Text(
             '${dato.name}',
             style: TextStyle(
               fontFamily: 'CustomFont',
               fontSize: 22.0,
+              color: Colors.white,
             ),
           ),
         ],
@@ -44,7 +45,9 @@ class CharacterData extends StatelessWidget {
 
     return GestureDetector(
       child: singleCharacter,
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, 'single', arguments: dato);
+      },
     );
   }
 }

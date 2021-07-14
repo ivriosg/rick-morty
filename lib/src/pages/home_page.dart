@@ -23,9 +23,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset(
-          'assets/logotipo.png',
-          width: 160.0,
+        title: Text(
+          'Rick and Morty',
+          style: TextStyle(
+            fontFamily: 'CustomFont',
+            fontSize: 25.0,
+            color: Color(0xFFAEE6E3),
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.black,
@@ -44,10 +48,11 @@ class _HomePageState extends State<HomePage> {
         children: _pageBottomBar,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
         currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.black,
+        selectedItemColor: Color(0xFFBBE0F2),
+        unselectedItemColor: Color(0xFFAEE6E3),
         showUnselectedLabels: false,
         onTap: _onItemTapped,
         items: [

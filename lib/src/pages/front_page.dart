@@ -10,6 +10,7 @@ class FrontPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        color: Colors.black,
         padding: EdgeInsets.all(15.0),
         child: _getCharacter(),
       ),
